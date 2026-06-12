@@ -1,11 +1,12 @@
-function output = simulation_design()
+function output = simulation_design(n)
 
 % Simulation script for wraper MC_simulation
 
-% this lince is switched off because the wraper alreade resets the 
+% this is switched off because the wraper alreade resets the 
 % generator for the entire simulation (for replicability of the results)
+% and defines the number od observations
 %rng(0);
-n=500;
+%n=500;
 
 datasets = simulate_sfa_design(n); % generate once
 
