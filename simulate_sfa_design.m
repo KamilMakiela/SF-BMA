@@ -32,7 +32,8 @@ k1 = length(beta1);
 k2_max = max(k2_grid);
 k_max = k1 + k2_max;
 
-% One maximal X draw reused across all k2 cases
+% ONE X draw reused across all k2 cases/scenarios
+% this should reduce incidentallity within a single MC draw
 
 % ===== baseline case
 X_all = randn(n, k_max);
@@ -56,60 +57,52 @@ datasets(n_k2,n_sv,n_R) = struct( ...
     'sv', [], 'su', [], 'R', [], 'c', []);
 
 for ik2 = 1:n_k2
-    
     k2 = k2_grid(ik2);
     k  = k1 + k2;
-    
     X_base = X_all(:,1:k);
     beta   = [beta1; zeros(k2,1)];
     
     for isv = 1:n_sv
-        
         sv = sv_grid(isv);
         Vvu = sv^2 + su^2;
         
         for iR = 1:n_R
-            
             R = R_grid(iR);
-            
             % Deterministic scaling
             c = sqrt(R * Vvu / VX);
-            
-            % Scale regressors only, not intercept
+            % Scale regressors only, not the intercept
             X_scaled = c * X_base;
-            
             % Add intercept for estimation
             X = [ones(n,1), X_scaled];
-            
             % Full beta including intercept equall one!
             beta_full = [1; beta];
-            
             % Draw disturbance components
             v = randn(n,1);
             % correcting for minor imperfections in finite sample
-            %v = (v-mean(v))/std(v,1);
+            % v = (v-mean(v))/std(v,1);
             v = sv * v;
+            % =======
+            % this where you should change if you want to change 
+            % the inefficiency distributional assumptions in DGP
             u = exprnd(su,n,1); 
             % correcting for minor imperfections in finite sample
-            %u = u * (su / mean(u));
+            % for exponential case
+            % u = u * (su / mean(u));
             
             % Generate y
             y = X * beta_full + v - u;
             
-            % Store
+            % Store dataset information
             datasets(ik2,isv,iR).X    = X;
             datasets(ik2,isv,iR).y    = y;
             datasets(ik2,isv,iR).beta = beta_full;
-            
             datasets(ik2,isv,iR).k1 = k1;
             datasets(ik2,isv,iR).k2 = k2;
             datasets(ik2,isv,iR).k  = k;
-            
             datasets(ik2,isv,iR).sv = sv;
             datasets(ik2,isv,iR).su = su;
             datasets(ik2,isv,iR).R  = R;
             datasets(ik2,isv,iR).c  = c;
-            
         end
     end
 end
