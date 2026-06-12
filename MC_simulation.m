@@ -11,7 +11,7 @@ warning('off', 'MATLAB:singularMatrix');
 warning('off','MATLAB:illConditionedMatrix');
 
 if isempty(gcp('nocreate'))
-    parpool;   % or parpool('local', Nworkers)
+    parpool;
 end
 
 % back on
