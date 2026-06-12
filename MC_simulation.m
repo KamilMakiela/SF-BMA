@@ -5,6 +5,7 @@ n=500;
 draws=50;
 mc_res = cell(draws,1);
 
+% switching off unnecessary warnings
 warning('off','MATLAB:nearlySingularMatrix');
 warning('off', 'MATLAB:singularMatrix');
 warning('off','MATLAB:illConditionedMatrix');
@@ -12,6 +13,8 @@ warning('off','MATLAB:illConditionedMatrix');
 if isempty(gcp('nocreate'))
     parpool;   % or parpool('local', Nworkers)
 end
+
+% back on
 pctRunOnAll warning('off','MATLAB:nearlySingularMatrix');
 pctRunOnAll warning('off','MATLAB:singularMatrix');
 pctRunOnAll warning('off','MATLAB:illConditionedMatrix');
