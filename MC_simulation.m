@@ -1,5 +1,7 @@
-%MC simulation from Makieła (2026)
+% MC simulation from Makieła (2026)
+% I reset the random seed so that the results are replicable
 rng(0);
+n=500;
 draws=50;
 mc_res = cell(draws,1);
 
@@ -20,7 +22,7 @@ fprintf('Simulation started at: %s \n', string(t_start, 'yyyy-MM-dd HH:mm:ss'));
 for i = 1:draws
     fprintf('Runing MC draw %.0f out of %.0f.\n', i, draws);
     %try
-        mc_res{i,1} = simulation_design();
+        mc_res{i,1} = simulation_design(n);
     %catch err
     %   fprintf('Simulation %.0f failed.\n', i, draws);
     %   disp(err.message);
