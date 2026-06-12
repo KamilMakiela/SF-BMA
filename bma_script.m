@@ -67,7 +67,8 @@ search_forward_backward = fast_fbs(exp_v,dep_v,n,T,sfa_opt,init_var,dec_cr);
 % stop criterion - yes
 % this is the "gold standard" in heuristic search
 % see, e.g.:
-% Miller, A. (2002). Subset selection in regression (2nd ed.). Boca Raton, FL: Chapman & Hall/CRC.
+% Miller, A. (2002). Subset selection in regression (2nd ed.). Boca Raton,
+% FL: Chapman & Hall/CRC. https://doi.org/10.1201/9781420035933
 search_fbs = full_fbs_unique(exp_v,dep_v,n,T,sfa_opt,init_var,dec_cr);
 %toc;
 tic;
