@@ -23,9 +23,7 @@ function out = aggregate_mc_results(mc_res)
     % Group by scenario
     [G, scenario_tbl] = findgroups(T_all(:, id_vars));
 
-    % =========================
     % MEAN
-    % =========================
     T_mean = scenario_tbl;
 
     for j = 1:numel(metric_vars)
@@ -33,9 +31,7 @@ function out = aggregate_mc_results(mc_res)
         T_mean.(v) = splitapply(@(x) mean(x,'omitnan'), T_all.(v), G);
     end
 
-    % =========================
     % STD
-    % =========================
     T_std = scenario_tbl;
 
     for j = 1:numel(metric_vars)
@@ -43,9 +39,7 @@ function out = aggregate_mc_results(mc_res)
         T_std.(v) = splitapply(@(x) std(x,'omitnan'), T_all.(v), G);
     end
 
-    % =========================
     % SCORE (replaces win)
-    % =========================
     T_score = scenario_tbl;
 
     for j = 1:numel(metric_vars)
@@ -55,9 +49,7 @@ function out = aggregate_mc_results(mc_res)
             T_all.(v), G);
     end
 
-    % =========================
     % OVERALL
-    % =========================
     T_overall_mean  = table();
     T_overall_std   = table();
     T_overall_score = table();
@@ -73,9 +65,7 @@ function out = aggregate_mc_results(mc_res)
             mean(x < 0,'omitnan') + 0.5 * mean(x == 0,'omitnan');
     end
 
-    % =========================
     % OUTPUT
-    % =========================
     out = struct();
     out.all_draws      = T_all;
     out.mean_by_scen   = T_mean;
