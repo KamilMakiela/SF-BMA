@@ -22,9 +22,7 @@ else
     if_mdd = 0;
 end
 
-% -------------------------------------------------------------------------
 % Data and labels
-% -------------------------------------------------------------------------
 if istable(tabela)
     X = table2array(tabela);
     nazwy = tabela.Properties.VariableNames;
