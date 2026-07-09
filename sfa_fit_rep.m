@@ -59,14 +59,14 @@ switch sfa_opt
         scores = @(theta)(scores_nhn_a(theta,X,y));
         prior_hess = @(theta)(prior_hes_nhn_a(theta));
     case 3 %sf-nex with persitant inefficiency for panel data
-        theta_start = [b_ml; 2*log(s_ml)/2; 0];
+        theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nexP_b(theta, X, y, n, T));
         funopt_post = @(theta)(nlgMAP_nexP_b(theta,X,y,n,T));
         fun_MAP_a = @(theta)(lgMAP_nexP_a(theta,X,y,n,T));
         scores = @(theta)(scores_nexP_a(theta,X,y,n,T));
         prior_hess = @(theta)(prior_hes_nex_a(theta));
     case 4 %sfa-nhn with persistent ineff
-        theta_start = [b_ml; 2*log(s_ml)/2; 0];
+        theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nhnP_b(theta, X, y, n, T));
         funopt_post = @(theta)(nlgMAP_nhnP_b(theta,X,y,n,T));
         fun_MAP_a = @(theta)(lgMAP_nhnP_a(theta,X,y,n,T));
