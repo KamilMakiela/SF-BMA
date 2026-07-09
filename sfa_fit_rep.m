@@ -52,7 +52,7 @@ switch sfa_opt
         scores = @(theta)(scores_nex_a(theta,X,y));
         prior_hess = @(theta)(prior_hes_nex_a(theta));
     case 2 %sf-nhn
-        theta_start = [b_ml; log(s_ml); 0];
+        theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nhn_b(theta, X, y));
         funopt_post = @(theta)(nlgMAP_nhn_b(theta, X, y));
         fun_MAP_a = @(theta)(lgMAP_nhn_a(theta,X,y));
