@@ -27,7 +27,7 @@ switch gen
         u = 0.4.*exprnd(1,nT,1); %implies s_u = mean(u) = 1
         y = X*beta + er - u;
     case 2
-        u = kmdraw2(1,1,nT);
+        u = kmdraw2(0,1,nT);
         y = X*beta + er - u;
     case 3
         u = ones(T,1) * exprnd(1,1,n); %implies s_u = mean(u) = 1
