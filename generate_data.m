@@ -33,7 +33,7 @@ switch gen
         u = ones(T,1) * exprnd(1,1,n); %implies s_u = mean(u) = 1
         y = X*beta + er - u(:);        
     case 4
-        u = ones(T,1) * kmdraw2(1,1,n)';
+        u = ones(T,1) * kmdraw2(0,1,n)';
         y = X*beta + er - u(:);
     case 5
         %for panel data RE model
