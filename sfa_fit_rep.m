@@ -29,6 +29,7 @@ switch sfa_opt
     case 0 %cnlrm
         %this case is mostly analitical
         %in parametrization A from the start!!
+        model.name = 'cnlrm';
         k = k-1;
         sig_idx = k;
         theta_l_max = [b_ml; log(s_ml)];
@@ -44,6 +45,7 @@ switch sfa_opt
         scores = @(theta)(scores_nonsf(theta,X,y));
         prior_hess = @(theta)(prior_hes_nonsf(theta));
     case 1 %sf-nex
+        model.name = 'nex';
         %theta_start = [b_mnk; log(s_mnk/2); log(s_mnk/2)];
         theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nex_b(theta, X, y));
@@ -52,6 +54,7 @@ switch sfa_opt
         scores = @(theta)(scores_nex_a(theta,X,y));
         prior_hess = @(theta)(prior_hes_nex_a(theta));
     case 2 %sf-nhn
+        model.name = 'nhn';
         theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nhn_b(theta, X, y));
         funopt_post = @(theta)(nlgMAP_nhn_b(theta, X, y));
@@ -59,6 +62,7 @@ switch sfa_opt
         scores = @(theta)(scores_nhn_a(theta,X,y));
         prior_hess = @(theta)(prior_hes_nhn_a(theta));
     case 3 %sf-nex with persitant inefficiency for panel data
+        model.name = 'nexp';
         theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nexP_b(theta, X, y, n, T));
         funopt_post = @(theta)(nlgMAP_nexP_b(theta,X,y,n,T));
@@ -66,6 +70,7 @@ switch sfa_opt
         scores = @(theta)(scores_nexP_a(theta,X,y,n,T));
         prior_hess = @(theta)(prior_hes_nex_a(theta));
     case 4 %sfa-nhn with persistent ineff
+        model.name = 'nhnp';
         theta_start = [b_ml; 2*log(s_ml); 0];
         funopt = @(theta)(nlgl_nhnP_b(theta, X, y, n, T));
         funopt_post = @(theta)(nlgMAP_nhnP_b(theta,X,y,n,T));
@@ -73,6 +78,7 @@ switch sfa_opt
         scores = @(theta)(scores_nhnP_a(theta,X,y,n,T));
         prior_hess = @(theta)(prior_hes_nhn_a(theta));
     case 5 %panel data RE model
+        model.name = 'RE';
         theta_start = [b_ml;2*log(s_ml); 0];
         funopt = @(theta)(nlgl_re_b(theta, X, y, n, T));
         funopt_post = @(theta)(nlgMAP_re_b(theta, X, y, n, T));
@@ -104,7 +110,7 @@ if sfa_opt ~= 0 %otherwise cnlrm already computed in the case statment
     [V,D] = eig(hes);
     d = diag(D);
     %numerical stability check
-    d(d < 1e-12) = 1e-12;
+    d(d < 1e-10) = 1e-10;
     hes = V * diag(d) * V';
     Var_a = inv(hes);
 end
@@ -170,8 +176,8 @@ model.params_ml = theta_l_max_a;
 model.params_ml_se = model.theta_ml_se;
 model.params_ml(sig_idx) = exp(theta_l_max_a(sig_idx));
 model.params_ml_se(sig_idx) = model.params_ml(sig_idx) .* model.theta_ml_se(sig_idx);
-model.n = n;
 model.T = T;
+model.n = n;
 
 if if_mdd == 1
     %posterior covariance - quick inversion scheeme
