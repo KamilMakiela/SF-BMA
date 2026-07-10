@@ -170,6 +170,8 @@ model.params_ml = theta_l_max_a;
 model.params_ml_se = model.theta_ml_se;
 model.params_ml(sig_idx) = exp(theta_l_max_a(sig_idx));
 model.params_ml_se(sig_idx) = model.params_ml(sig_idx) .* model.theta_ml_se(sig_idx);
+model.n = n;
+model.T = T;
 
 if if_mdd == 1
     %posterior covariance - quick inversion scheeme
