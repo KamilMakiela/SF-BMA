@@ -1,5 +1,5 @@
 function [u_hat, TE_hat] = inef_jondrow(model, X, y)
-%function that calculates (in)efficiency scores based on jondrow et al.
+% function that calculates (in)efficiency scores based on jondrow et al.
 
 switch model.name
     case 'nex'
@@ -14,12 +14,10 @@ switch model.name
         u_hat = 0;
         TE_hat =1;
 end
-
 end
+
 function [u_hat, TE_hat] = eff_nex_a(theta, X, y)
-
 k = size(X,2);
-
 beta = theta(1:k);
 s_v  = exp(theta(k+1));
 s_u  = exp(theta(k+2));
