@@ -22,9 +22,9 @@ The function supports:
 * full enumeration of the model space;
 * optional fast pre-screening for larger model spaces.
 
-Because exhaustive search evaluates all possible subsets of candidate regressors (i.e., potential expalanatory variables), its computational cost increases exponentially with the number of regressors. Also, in SFA some variable choices are driven by theory rather than by pure statistical fit. That is why the algorithm allows us to provide an initial set of variables, which are not subjected to BMA/S (i.e., PIP=1 by default). Just place their columns as first ones from the left right after the constant (which should, by default, be the first column from the left in X). Parameter `init_var` determines how many columns in X, counting from left, are to be left out from the search (treated as fixed, as the baseline model). The minimum and also the default value is `init_var'=1, which mean that only the intercept is left out from BMA (so the baseline model is an empty one).  
+Because exhaustive search evaluates all possible subsets of candidate regressors (i.e., potential expalanatory variables), its computational cost increases exponentially with the number of regressors. Also, in SFA some variable choices are driven by theory rather than by pure statistical fit. That is why the algorithm allows us to provide an initial set of variables, which are not subjected to BMA/S (i.e., PIP=1 by default). Just place their columns as first ones from the left right after the constant (which should, by default, be the first column from the left in X). Parameter `init_var` determines how many columns in X, counting from left, are to be left out from the search (treated as fixed, as the baseline model). The minimum and in many cases probably the default value is `init_var'=1, which means that only the intercept is left out from BMA (so the baseline model is an empty one).  
 
-Further details are provided in Makieła (2026); references below.
+Further details are provided in Makieła (2026); reference below.
 
 ### `fast_fs`
 
