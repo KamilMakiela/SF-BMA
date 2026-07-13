@@ -1,26 +1,93 @@
-The package is for Bayesian Model Averaging in non-Gaussian error regression models like Stochastic Frontier Analysis. Main featueres of the package use paralelization toolbox, so it is better to have it  in MATLAB.
+# Bayesian Model Averaging for Non-Gaussian Regression Models
 
-Key functions for model estimation:
-sfa_fit_rep - calculates a single model and returns its results structure
+This MATLAB package implements Bayesian Model Averaging (BMA) for regression models with non-Gaussian error structures: stochastic frontier analysis (SFA) models.
 
-Functions for BMA:
+Several of the main model-search procedures use MATLAB’s Parallel Computing Toolbox. Although the package can run without parallel execution in some cases, access to the toolbox is recommended for computationally intensive searches.
 
-- fast_ES - the gold standard in model search, though time-consuming. It performs exhaustive (brute force) search over the entire model space. The algorithm uses paralelization and optional fast pre-screening algorithm; see Makieła (2026) Model Uncertainty under Non-Gaussian Errors: Bayesian Model Averaging and Selection in Stochastic Frontier Models (forthcoming).
+## Model Estimation
 
-- fast_fs - fast heuristic method for model building from buttom up (more logical in case of sfa, imho)
+### `sfa_fit_rep`
 
-- fast_bs - fast heuristic method for model building from top (the most general case) to buttom.
+Estimates a single regression or stochastic frontier model and returns a structure containing the estimation results.
 
-- full_fs, full_bs - similar algorithms to the above ones, with the exception that they are more focused on 'search' (not select), which means they do not have any built in stop, instead they go over all possible options in their respective model builing strategies (ie., p(p+1)/2, where p is the number of candidate regressors); so around these procedures one can build a simple, fast BMA algorithm. 
+## Bayesian Model Averaging and Model-Space Search
 
-- fast_fb - a stepwise model-selection algorithm based on a forward-backward search (with a stop criterion); I would still classify this as a selection algorith in the sense needed from BMA/S
+### `fast_ES`
 
-- full_fbs_unique - a bottom-up model-space search algorithm based on forward-backward-swap model search strategy, with duplicate models removed. The algorithm explores three types of moves: 1 Forward: add one excluded variable; 2 Backward: remove one included variable; 3 Swap: remove one included variable and simultaneously add one excluded variable. The unique part means that models reached through different paths are stored only once. THis is a relatively good deterministic neighbourhood-search heuristic algorithm. 
+Performs exhaustive search over the full model space and may therefore be treated as the benchmark model-search procedure when the number of candidate regressors is sufficiently small.
 
-- fast_ES - full exhaustive search with fast prescreening methods. Details for this algorithm can be found in Makieła (2026); references below. 
+The function supports:
 
-See comments in BMA_script for more details on how to use them. 
+* parallel model evaluation;
+* full enumeration of the model space;
+* optional fast pre-screening for larger model spaces.
 
-Reference: 
-Makieła, Kamil (2026). Model Uncertainty under Non-Gaussian Errors: Bayesian Model Averaging and Selection in Stochastic Frontier Models. 
- 
+Because exhaustive search evaluates all possible subsets of candidate regressors, its computational cost increases exponentially with the number of regressors.
+
+Further details are provided in Makieła (2026); references below.
+
+### `fast_fs`
+
+A fast forward-selection heuristic method.
+
+The procedure starts from the mandatory-variable model and builds models from the bottom up by sequentially adding candidate regressors. An improvement-based stopping criterion is used.
+
+This direction of search may be particularly natural in stochastic frontier applications, where the preferred specification is built gradually from a restricted baseline model (the baseline being usually motivated by theory).
+
+### `fast_bs`
+
+A fast backward-elimination.
+
+The procedure starts from the most general model and works from the top down by sequentially removing candidate regressors. An improvement-based stopping criterion is used.
+
+### `full_fs`
+
+A full forward-search procedure without an early stopping criterion.
+
+At each stage, the algorithm evaluates all possible additions to the currently selected model. For (p) candidate regressors, the procedure evaluates up to
+
+[
+\frac{p(p+1)}{2}
+]
+
+candidate models, excluding the initial mandatory-variables-only model.
+
+Unlike `fast_fs`, the purpose of `full_fs` is broader model-space exploration rather than the selection of a single locally preferred model so a fast BMA may be used with it.
+
+### `full_bs`
+
+A full backward-search procedure without stopping criterion.
+
+The algorithm starts from the most general specification and sequentially explores all possible variable removals within the backward-search path.
+
+As with `full_fs`, the procedure is intended primarily for model-space exploration and can be used as the basis for a computationally efficient BMA procedure.
+
+### `fast_fb`
+
+A stepwise model-selection algorithm based on forward-backward search.
+
+At each iteration, the procedure evaluates one-variable additions and removals. The search stops when no neighbouring model improves the selected information criterion.
+
+Because it uses an improvement-based stopping rule, `fast_fb` should be regarded primarily as a model-selection algorithm rather than a general model-space search procedure for BMA.
+
+### `full_fbs_unique`
+
+A bottom-up model-space search procedure based on a forward-backward-swap strategy.
+
+The algorithm considers three types of moves:
+
+1. **Forward move:** add one excluded variable.
+2. **Backward move:** remove one included variable.
+3. **Swap move:** remove one included variable and simultaneously add one excluded variable.
+
+The `unique` suffix indicates that duplicate model specifications obtained through different search paths are removed.
+
+This procedure provides a relatively broad deterministic neighbourhood search while remaining substantially less computationally demanding than exhaustive enumeration.
+
+## Usage
+
+See the comments and examples in `BMA_script` for details on model specification, function arguments, and interpretation of the returned results.
+
+## Reference
+
+Makieła, K. (2026). *Model uncertainty under non-Gaussian errors: Bayesian model averaging and selection in stochastic frontier models*. Forthcoming.
