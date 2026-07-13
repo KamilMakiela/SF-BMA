@@ -1,23 +1,37 @@
-function [u_hat, TE_hat] = inef_jondrow(model, X, y)
-% function that calculates (in)efficiency scores based on jondrow et al.
+function [u_hat, TE_hat] = inef_jondrow(model, X, y, bayes)
+%function that calculates (in)efficiency scores based on jondrow et al.
+arguments
+    model
+    X
+    y
+    bayes = 0 %if you want to use bayesian results
+end
+
+if bayes == 0
+    theta = model.theta_ml;
+else
+    theta = model.bayes.theta_post;
+end
 
 switch model.name
     case 'nex'
-        [u_hat, TE_hat] = eff_nex_a(model.params_ml, X, y);
+        [u_hat, TE_hat] = eff_nex_a(theta, X, y);
     case 'nhn'
-        [u_hat, TE_hat] = eff_nhn_a(model.params_ml, X, y);
+        [u_hat, TE_hat] = eff_nhn_a(theta, X, y);
     case 'nexp'
-        [u_hat, TE_hat] = eff_nexP_a(model.params_ml, X, y, model.n, model.T);
-	case 'nhnp'
-        [u_hat, TE_hat] = eff_nhnP_a(model.params_ml, X, y, model.n, model.T);
+        [u_hat, TE_hat] = eff_nexP_a(theta, X, y, model.n, model.T);        
+    case 'nhnp'
+        [u_hat, TE_hat] = eff_nhnP_a(theta, X, y, model.n, model.T);
     otherwise
         u_hat = 0;
         TE_hat =1;
 end
-end
 
+end
 function [u_hat, TE_hat] = eff_nex_a(theta, X, y)
+
 k = size(X,2);
+
 beta = theta(1:k);
 s_v  = exp(theta(k+1));
 s_u  = exp(theta(k+2));
