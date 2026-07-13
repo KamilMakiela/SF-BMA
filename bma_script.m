@@ -11,20 +11,13 @@ generate_data;
 
 %data prep for plm dataset Produc
 %{
-tabela = readtable('Produc.xlsx', 'sheet', 'm1');
-Tab = tabela;
+Tab = readtable('Produc.xlsx', 'sheet', 'm1');
 Tab(:, [1 2 3]) = [];
 vars = Tab.Properties.VariableNames;
 
-first = {'ln_gsp','ln_emp','ln_pc','ln_pcap'};
-rest  = setdiff(vars, first, 'stable');
-
-Tab = Tab(:, [first rest]);
 %Tab{:,:} = log(Tab{:,:});
 dep_v = Tab(:,1);
 exp_v = Tab(:,2:end);
-exp_v.const = ones(height(exp_v),1);
-exp_v = movevars(exp_v,'const','Before',1);
 init_var = 1;
 T=1;
 %}
