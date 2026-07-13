@@ -2,11 +2,14 @@ function model = sfa_fit_rep(X,y, n, T, sfa_opt, dec_crit, if_mdd)
 % sfa_opt = 0 CNLRM
 % sfa_opt = 1 SF normal-exponential
 % sfa_opt = 2 SF normal-half-normal
+% sfa_opt = 3 panel SF normal-exponential
+% sfa_opt = 4 panel SF normal-half-normal
+% sfa_opt = 5 panel RE
 % dec_crit = 0 BIC based
 % dec_crit = 1 mdd based (i.e., -mdd); mdd is integrated likelihood
 % dec_crit = 2 AIC based (for whatever reason ;) )
 % if_mdd = 0, mdd approximated with BIC 
-% if_mdd = 1, exact mdd
+% if_mdd = 1, exact mdd calculation
 
 arguments
     X
