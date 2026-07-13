@@ -44,11 +44,11 @@ The procedure starts from the most general model and works from the top down by 
 
 A full forward-search procedure without an early stopping criterion.
 
-At each stage, the algorithm evaluates all possible additions to the currently selected model. For (p) candidate regressors, the procedure evaluates up to
+At each stage, the algorithm evaluates all possible additions to the currently selected model. For p candidate regressors, the procedure evaluates up to
 
-[
+$$
 \frac{p(p+1)}{2}
-]
+$$
 
 candidate models, excluding the initial mandatory-variables-only model.
 
