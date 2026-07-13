@@ -86,7 +86,7 @@ This procedure provides a relatively broad deterministic neighbourhood search wh
 
 ## Usage
 
-See the comments and examples in `BMA_script` for details on model specification, function arguments, and interpretation of the returned results.
+See the comments and examples in `BMA_script` for details on model specification, function arguments, and interpretation of the returned results. For technical details, see Makieła et al. (2026)
 
 ## Reference
 
