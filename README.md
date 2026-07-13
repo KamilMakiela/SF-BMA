@@ -1,4 +1,4 @@
-The package is for Bayesian Model Averaging in non-Gaussian error regression models, mainly for Stochastic Frontier Analysis. Main featueres of the package use paralelization toolbox, so it is better to have it installed in MATLAB.
+The package is for Bayesian Model Averaging in non-Gaussian error regression models like Stochastic Frontier Analysis. Main featueres of the package use paralelization toolbox, so it is better to have it  in MATLAB.
 
 Key functions for model estimation:
 sfa_fit_rep - calculates a single model and returns its results structure
@@ -17,6 +17,10 @@ Functions for BMA:
 
 - full_fbs_unique - a bottom-up model-space search algorithm based on forward-backward-swap model search strategy, with duplicate models removed. The algorithm explores three types of moves: 1 Forward: add one excluded variable; 2 Backward: remove one included variable; 3 Swap: remove one included variable and simultaneously add one excluded variable. The unique part means that models reached through different paths are stored only once. THis is a relatively good deterministic neighbourhood-search heuristic algorithm. 
 
-- fast_ES - full exhaustive search with fast prescreening options. 
+- fast_ES - full exhaustive search with fast prescreening methods. Details for this algorithm can be found in Makieła (2026); references below. 
 
 See comments in BMA_script for more details on how to use them. 
+
+Reference: 
+Makieła, Kamil (2026). Model Uncertainty under Non-Gaussian Errors: Bayesian Model Averaging and Selection in Stochastic Frontier Models. 
+ 
