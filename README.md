@@ -6,13 +6,13 @@ Several of the main model-search procedures use MATLAB’s Parallel Computing To
 
 ## Model Estimation
 
-### `model = sfa_fit_rep(X,y, n, T, sfa_opt, dec_crit, if_mdd)`
+### `model = sfa_fit_rep(X,y, n, T, sfa_opt, dec_crit, if_mdd);`
 
 Estimates a single regression or stochastic frontier model and returns structure `model` containing the estimation results. In particular, it returns information criteria such as: BIC, AIC, and more importantly the integrated likelihood value (aka marginal data density), which is a Bayesian measure of quality of model fit. Any of these can later be used by search algorithms. I recommend using integrated likelihood for an exact, fully Bayesian approach (dec_crit=1 and if_mdd=1), or BIC for speed (dec_crit=0 and if_mdd=0). For sfa_opt you can choose: 0 (cnlrm), 1 (SF normal-exponential), 2 (SF normal-half-normal), 3 (panel SF normal-exponential), 4 (panel SF normal-half-normal), 5 (panel RE). Note: X should already contain the constant (for the intercept), which I reccomend to place it as the first column from the left in matrix X (this is important mainly if you want to use X as an input for one of the search algorithms). 
 
 ## Bayesian Model Averaging and Model-Space Search
 
-### `fast_ES`
+### `result = fast_ES(X, y, n, T, sfa_opt, init_var, dec_cr);`
 
 Performs exhaustive search over the full model space and may therefore be treated as the benchmark model-search procedure when the number of candidate regressors is sufficiently small.
 
