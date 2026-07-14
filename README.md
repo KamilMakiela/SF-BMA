@@ -12,9 +12,9 @@ Estimates a single regression or stochastic frontier model and returns structure
 
 ## Bayesian Model Averaging and Model-Space Search
 
-### `result = fast_ES(X, y, n, T, sfa_opt, init_var, dec_cr);`
+### `bma = fast_ES(X, y, n, T, sfa_opt, init_var, dec_cr);`
 
-Performs exhaustive search over the full model space and may therefore be treated as the benchmark model-search procedure when the number of candidate regressors is sufficiently small.
+Performs exhaustive search over the full model space and may therefore be treated as the benchmark model-search procedure when the number of candidate regressors is sufficiently small. The  returned structure `bma` contains BMA results. 
 
 The function supports:
 
