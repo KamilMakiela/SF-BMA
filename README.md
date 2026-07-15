@@ -90,4 +90,4 @@ See the comments and examples in `BMA_script` for details on model specification
 
 ## Reference
 
-Makieła, K. (2026). *Model uncertainty under non-Gaussian errors: Bayesian model averaging and selection in stochastic frontier models*. Available at arXive.
+Makieła, K. (2026). *"Model uncertainty under non-Gaussian errors: Bayesian model averaging and selection in stochastic frontier models"*. Available at arXive.
