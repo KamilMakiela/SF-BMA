@@ -1,4 +1,4 @@
-# Bayesian Model Averaging for Non-Gaussian Regression Models: SFA
+# SF-BMA: Bayesian model averaging and selection for stochastic frontier models 
 
 This MATLAB package implements Bayesian Model Averaging (BMA) for regression models with non-Gaussian error structures: stochastic frontier analysis (SFA) models.
 
